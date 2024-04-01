@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Usuarios</title>
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+</head>
+<body>
+
+    <input type="checkbox" id="nav-toggle">
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2><i class="fa-solid fa-gears" style="color: #ffffff;"></i><span>promec</span></h2>
+        </div>
+        <!--Secciones-del-tablero-->
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="{% url 'clientes' %}" class="bi bi-person-vcard" >
+                        <span>clientes  </span></a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'usuarios' %}"><i class="fa-solid fa-calendar-day" style="color: #ffffff;"></i>
+                        <span>Usuarios</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'citas' %}"><i class="fa-solid fa-calendar-day" style="color: #ffffff;"></i>
+                        <span>Citas</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'facturas' %}"><i class="fa-solid fa-calendar-day" style="color: #ffffff;"></i>
+                        <span>Facturas</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'servicios' %}"><i class="fa-solid fa-calendar-day" style="color: #ffffff;"></i>
+                        <span>Servicios</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'ventas' %}"><i class="fa-solid fa-calendar-day" style="color: #ffffff;"></i>
+                        <span>Ventas</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'historial' %}"><i class="fa-solid fa-calendar-day" style="color: #ffffff;"></i>
+                        <span>historial</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<div class="main-content">
+    <header>
+        <h2>
+            <label for="nav-toggle">
+                <span class="fa-solid fa-bars" style="color: #ff0000;"></span>
+            </label> Menu
+        </h2>
+
+        <div class="user-wrapper">
+            <img class="fa-regular fa-address-card" style="color: #e00000;" width="40px" height="40px" alt="">
+            <div>
+                <h4>Administrador</h4>
+                <small>Nombre Admin</small>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!--Tabla recordar-->
+        <div class="recent-grid">
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Facturas</h3>
+                        
+                        <div class="search-wrapper">
+                            <span class="las la-search"></span>
+                            <input type="search" placeholder="Buscar aquí" />
+                        </div>
+                        
+                        <button>Mostrar todo <span class="las la-arrow-right"></span></button>
+                    </div>
+                        
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table width="100%">
+                                <thead>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>Fecha</td>
+                                        <td>Total</td>
+                                        <td>Descripción</td>
+                                        <td>ID Venta</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for factura in facturas %}
+                                        <tr>
+                                            <td>{{ factura.idFactura }}</td>
+                                            <td>{{ factura.Fecha }}</td>
+                                            <td>{{ factura.Total }}</td>
+                                            <td>{{ factura.Descripcion }}</td>
+                                            <td>{{ factura.IDVenta }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class="card1">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+        integrity="sha512-zuF0jB0YIC5MuTvlMxkRyA/1bJkF+q7uWzwWM77LCr6QMQ8zDiGKDn3UzgzBZwMTRkfrv2pgTo4K+O0b1/BecA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Rf5JpOwBX0+MrIi2Kd2uhRXLBz4lsCZO3Tz3jFhQk9c/tUEjzIe+/UHHdZtKTC9r" crossorigin="anonymous"></script>
+<script src="/dashboard/js/dash.js"></script>
+</body>
+</html>
