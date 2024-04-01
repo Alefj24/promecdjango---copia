@@ -1,6 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cliente, Usuario, Historial, Citas, Venta, Servicio, Factura
-from .forms import UsuarioForm
+from .forms import UsuarioForm, ClienteForm
+from django.http import HttpResponseNotAllowed
+
+
+
 # Create your views here.
 
 
@@ -36,8 +40,19 @@ def facturas(request):
     facturas = Factura.objects.all()
     return render(request, 'facturas.html', {'facturas': facturas})
 
+def agregar_usuario(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('usuarios')  
+    else:
+        form = UsuarioForm()
+    return render(request, 'agregar_usuario.html', {'form': form})
+
 def editar_usuario(request, usuario_id):
     usuario = Usuario.objects.get(pk=usuario_id)
+    
     if request.method == 'POST':
         form = UsuarioForm(request.POST, instance=usuario)
         if form.is_valid():
@@ -45,7 +60,10 @@ def editar_usuario(request, usuario_id):
             return redirect('usuarios')
     else:
         form = UsuarioForm(instance=usuario)
+    
     return render(request, 'editar_usuario.html', {'form': form})
+
+
 
 def eliminar_usuario(request, usuario_id):
     usuario = Usuario.objects.get(pk=usuario_id)
@@ -53,3 +71,23 @@ def eliminar_usuario(request, usuario_id):
         usuario.delete()
         return redirect('usuarios')
     return render(request, 'eliminar_usuario.html', {'usuario': usuario})
+
+
+def editar_cliente(request, cliente_id):
+    cliente = get_object_or_404(Cliente, pk=cliente_id)
+    if request.method == 'POST':
+        form = ClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('clientes')
+    else:
+        form = ClienteForm(instance=cliente)
+    return render(request, 'editar_cliente.html', {'form': form})
+
+def eliminar_cliente(request, cliente_id):
+    if request.method == 'POST':
+        cliente = Cliente.objects.get(pk=cliente_id)
+        cliente.delete()
+        return redirect('clientes')
+    else:
+        return HttpResponseNotAllowed(['POST'])

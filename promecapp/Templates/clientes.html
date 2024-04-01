@@ -93,6 +93,7 @@
                                         <td>Teléfono</td>
                                         <td>Correo Electrónico</td>
                                         <td>Usuario</td>
+                                        <td>Acciones</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -106,9 +107,14 @@
                                             <td>{{ cliente.Correo_Electronico }}</td>
                                             <td>{{ cliente.IDUsuario }}</td>
                                             <td>
-                                                <!-- Aquí puedes añadir enlaces para modificar o eliminar el cliente -->
+                                                <a href="{% url 'editar_cliente' cliente.IDCliente %}"><button>Editar</button></a>
+                                                <form action="{% url 'eliminar_cliente' cliente.IDCliente %}" method="post" style="display: inline;">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
                                             </td>
                                         </tr>
+
                                     {% endfor %}
                                 </tbody>
                             </table>

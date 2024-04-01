@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Usuario</title>
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+</head>
+<body>
+
+<div class="main-content">
+    <header>
+        <h2>Agregar Usuario</h2>
+    </header>
+
+    <main>
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Agregar Usuario</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
