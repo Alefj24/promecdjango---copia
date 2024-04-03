@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title> 
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+<div class="wrapper">
+    {% block content %}
+        <h2>Registro</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-box">
+                {{ form.Nombre_Usuario.label_tag }}
+                {{ form.Nombre_Usuario }}
+            </div>
+            <div class="input-box">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+            </div>
+            <div class="input-box">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+            </div>
+            <div class="input-box">
+                {{ form.nombre.label_tag }}
+                {{ form.nombre }}
+            </div>
+            <div class="input-box">
+                {{ form.apellidos.label_tag }}
+                {{ form.apellidos }}
+            </div>
+            <div class="input-box">
+                {{ form.direccion.label_tag }}
+                {{ form.direccion }}
+            </div>
+            <div class="input-box">
+                {{ form.telefono.label_tag }}
+                {{ form.telefono }}
+            </div>
+            <div class="input-box">
+                {{ form.correo_electronico.label_tag }}
+                {{ form.correo_electronico }}
+            </div>
+            <div class="policy">
+                {{ form.agree.label_tag }}
+                {{ form.agree }}
+                <h3>{{ form.agree.help_text }}</h3>
+            </div>
+            <div class="input-box button">
+                <button type="submit">Registrarse</button>
+            </div>
+        </form>
+        <div class="text">
+            <h3>¿Ya tienes una cuenta? <a href="#">Inicia sesión ahora</a></h3>
+        </div>
+    {% endblock %}
+</div>
+</body>
+</html>
+
+
+
+
+"""from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+
+class UsuarioManager(BaseUserManager):
+    def create_user(self, Nombre_Usuario, email, password=None):
+        if not email:
+            raise ValueError('El usuario debe tener una dirección de correo electrónico')
+
+        user = self.model(
+            Nombre_Usuario=Nombre_Usuario,
+            email=self.normalize_email(email),
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, Nombre_Usuario, email, password=None):
+        user = self.create_user(
+            Nombre_Usuario=Nombre_Usuario,
+            email=email,
+            password=password,
+        )
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self._db)
+        return user
+
+class Usuario(AbstractBaseUser):
+    Nombre_Usuario = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(verbose_name='email', max_length=255, unique=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UsuarioManager()
+
+    USERNAME_FIELD = 'Nombre_Usuario'
+    REQUIRED_FIELDS = ['email']
+
+    def __str__(self):
+        return self.Nombre_Usuario
+
+    def has_perm(self, perm, obj=None):
+        return self.is_staff
+
+    def has_module_perms(self, app_label):
+        return self.is_staff
+"""

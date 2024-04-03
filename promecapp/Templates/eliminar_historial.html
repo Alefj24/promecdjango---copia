@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar Eliminación</title>
+    <link rel="stylesheet" href="{% static 'css/bash.css' %}">
+</head>
+<body>
+    <header>
+        <div class="menu container">
+            <img src="/promec/paginahtml/principal/images/promec.png"class="PROMEC" alt="PROMEC" width="300px">
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+            <img src="/promec/paginahtml/principal/images/menu.png"class="menu_icono" alt="menu">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="#" style="color: black">Nuestros servicios</a></li>
+                    <li><a href="#" style="color: black">Quienes somos</a></li>
+                    <li><a href="#" style="color: black">Adquiere tu Servicio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <h1>Agregar Usuario</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+
+
+</body>
+</html>
+
+
+

@@ -78,8 +78,7 @@
                             <span class="las la-search"></span>
                             <input type="search" placeholder="Buscar aquí" />
                         </div>
-                        
-                        <button>Mostrar todo <span class="las la-arrow-right"></span></button>
+                        <a href="{% url 'agregar_factura' %}" class="btn btn-secundary">Agregar Factura</a>
                     </div>
                         
                     <div class="card-body">
@@ -92,6 +91,7 @@
                                         <td>Total</td>
                                         <td>Descripción</td>
                                         <td>ID Venta</td>
+                                        <td>Acciones</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,6 +102,13 @@
                                             <td>{{ factura.Total }}</td>
                                             <td>{{ factura.Descripcion }}</td>
                                             <td>{{ factura.IDVenta }}</td>
+                                            <td>
+                                                <a href="{% url 'editar_factura' factura.idFactura %}"><button>Editar</button></a>
+                                                <form action="{% url 'eliminar_factura' factura.idFactura %}" method="post" style="display: inline;">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

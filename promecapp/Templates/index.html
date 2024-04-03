@@ -12,10 +12,10 @@
     
     <header class="header">
        <div class="menu container">
-            <img src="/promec/paginahtml/principal/images/promec.png"class="PROMEC" alt="PROMEC" width="300px">
+            <img src="{% static 'images/promec.png' %}"class="PROMEC" alt="PROMEC" width="300px">
             <input type="checkbox" id="menu" />
             <label for="menu">
-            <img src="/promec/paginahtml/principal/images/menu.png"class="menu_icono" alt="menu">
+            <img src="{% static 'images/menu.png' %}"class="menu_icono" alt="menu">
             </label>
             <nav class="navbar">
                 <ul>
@@ -41,7 +41,7 @@
                     <a href="#" class="btn_1">leer mas</a>
                 </div>
             </div class="header_img">
-                <img src="/promec/paginahtml/principal/images/metal.PNG" alt="">
+                <img src="{% static 'images/metal.png' %}" alt="">
             <div>
         </div>
 
@@ -55,7 +55,7 @@
                 <a href="#">leer mas</a>
             </div>
             <div class="ofert_img">
-                <img src="/promec/paginahtml/principal/images/estanteria.png" alt="">
+                <img src="{% static 'images/estanteria.png' %}" alt="">
             </div>
         </div>
         <div class="ofert_1 b2">
@@ -64,7 +64,7 @@
                 <a href="#">leer mas</a>
             </div>
             <div class="ofert_img">
-                <img src="/promec/paginahtml/principal/images/estanteria2.png" alt="">
+                <img src="{% static 'images/estanteria2.png' %}" alt="">
             </div>
         </div>
         <div class="ofert_1 b3">
@@ -73,7 +73,7 @@
                 <a href="#">leer mas</a>
             </div>
             <div class="ofert_img">
-                <img src="/promec/paginahtml/principal/images/estanteria3.png" alt="">
+                <img src="{% static 'images/estanteria3.png' %}" alt="">
             </div>
         </div>
     </section>
@@ -85,48 +85,48 @@
         <div class="box_comtainer" id="lista_1">
 
             <div class="box">
-                <img src="/promec/paginahtml/principal/images/escalera.jpg" alt="">
+                <img src="{% static 'images/escalera.jpg' %}" alt="">
                 <div class="product_txt">
                     <h3>Escaleras</h3>
                     <p>Escaleras a base de metal</p>
                     <br>
-                    <a href="#" class="agregar_carrito btn_3" data-id="1">agendar cita</a>
+                    <a href="#"  data-id="1">agendar cita</a>
                 </div>
             </div>
             <div class="box">
-                <img src="/promec/paginahtml/principal/images/rejas.jpg" alt="">
+                <img src="{% static 'images/rejas.jpg' %}" alt="">
                 <div class="product_txt">
                     <h3>Rejas</h3>
                     <p>Rejas a base de metal</p>
                     <br>
-                    <a href="#" class="agregar_carrito btn_3" data-id="2">agendar cita</a>
+                    <a href="#"  data-id="2">agendar cita</a>
                 </div>
             </div>
             <div class="box">
-                <img src="/promec/paginahtml/principal/images/ventanahome.png" alt="">
+                <img src="{% static 'images/ventanahome.png' %}" alt="">
                 <div class="product_txt">
                     <h3>Ventanas</h3>
                     <p>Ventanas a base de metal</p>
                     <br>
-                    <a href="#" class="agregar_carrito btn_3" data-id="3">agendar cita</a>
+                    <a href="#"  data-id="3">agendar cita</a>
                 </div>
             </div>
             <div class="box">
-                <img src="/promec/paginahtml/principal/images/estanteria3.png " alt="">
+                <img src="{% static 'images/estanteria3.png' %}" alt="">
                 <div class="product_txt">
                     <h3>Estanteria</h3>
                     <p>Estanterias a base de metal</p>
                     <br>
-                    <a href="#" class="agregar_carrito btn_3" data-id="4">agendar cita</a>
+                    <a href="#"  data-id="4">agendar cita</a>
                 </div>
             </div>
             <div class="box">
-                <img src="/promec/paginahtml/principal/images/soldador-3.png" alt="">
+                <img src="{% static 'images/tecnico.png' %}" alt="">
                 <div class="product_txt">
                     <h3>Mantenimientos</h3>
                     <p>Mantenimiento a  estructuras de metal</p>
                     <br>
-                    <a href="#" class="agregar_carrito btn_3" data-id="5">agendar cita</a>
+                    <a href="#"  data-id="5">agendar cita</a>
                 </div>
             </div>
         </div>
@@ -142,36 +142,33 @@
                 <p>
                     Encantando con la compra. El producto llegó en perfectas condiciones y excatamente como se describe en la página
                 </p>
-                <img src="/promec/paginahtml/principal/images/starts.png" alt="">
+                <img src="{% static 'images/stars.png' %}" alt="">
                 <h4>Calificación</h4>
             </div>
             <div class="comentarios_1">
                 <p>
                     Este sitio web fue genial. Facil de navegar, un proceso de compra sin complicaciones y un servicio de entrega rápiido.
                 </p>
-                <img src="/promec/paginahtml/principal/images/starts.png" alt="">
+                <img src="{% static 'images/stars.png' %}" alt="">
                 <h4>Calificación</h4>
             </div>
         </div>
     </section>
 
     <footer class="footer">
-        
         <div class="container">
-
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1988.8022738467864!2d-74.09834921733247!3d4.48432249705461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sco!4v1692827135344!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <h3>Encuentranos en</h3>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1988.8022738467864!2d-74.09834921733247!3d4.48432249705461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sco!4v1692827135344!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-
         <div class="footer_content container">
             <div class="link">
                 <h3>Redes</h3>
                 <ul>
-                    <li><a href="#" class="fa-brands fa-whatsapp fa-xl" style="color: #ffffff;"></a></li>
-                    <li><a href="#" class="fa-brands fa-facebook fa-lg" style="color: #ffffff;"></a></li>
-                    <li><a href="#" class="fa-brands fa-instagram fa-lg" style="color: #ffffff;"></a></li>
+                    <li><a href="#"><img src="{% static 'images/wha.png' %}" width="7%">
+                    <li><a href="#"><img src="{% static 'images/fb.png' %}" width="7%">
+                    <li><a href="#"><img src="{% static 'images/ig.png' %}" width="7%">
                 </ul>
             </div>
-
             <div class="link">
                 <h3>Contacto</h3>
                 <ul>

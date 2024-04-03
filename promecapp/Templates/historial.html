@@ -78,10 +78,8 @@
                             <span class="las la-search"></span>
                             <input type="search" placeholder="Buscar aquí" />
                         </div>
-                        
-                        <button>Mostrar todo <span class="las la-arrow-right"></span></button>
+                        <a href="{% url 'agregar_historial' %}" class="btn btn-secundary">Agregar Historial</a>
                     </div>
-                        
                     <div class="card-body">
                         <div class="table-responsive">
                             <table width="100%">
@@ -92,6 +90,7 @@
                                         <td>Valor</td>
                                         <td>Fecha</td>
                                         <td>Cliente</td>
+                                        <td>Acciones</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,6 +101,13 @@
                                             <td>{{ historial.valor }}</td>
                                             <td>{{ historial.Fecha }}</td>
                                             <td>{{ historial.IDCliente }}</td>
+                                            <td>
+                                                <a href="{% url 'editar_historial' historial.IDHistorial %}"><button>Editar</button></a>
+                                                <form action="{% url 'eliminar_historial' historial.IDHistorial %}" method="post" style="display: inline;">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

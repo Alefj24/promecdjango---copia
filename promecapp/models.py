@@ -81,6 +81,11 @@ class Citas(models.Model):
     class Meta:
         db_table = 'citas'
 
+    def __str__(self):
+        return str(self.IDCita)
+
+
+
 class Factura(models.Model):
     idFactura = models.AutoField(primary_key=True)
     Fecha = models.DateField()
@@ -115,3 +120,7 @@ class Venta(models.Model):
 
     class Meta:
         db_table = 'venta'
+
+    def __str__(self):
+        return str(self.IDVenta)
+

@@ -5,7 +5,7 @@ body {
 }
 
 img {
-    max-width: 80%;
+    max-width: 100%;
 }
 
 .container{
@@ -20,7 +20,10 @@ img {
     padding: 120px 0 0 0;
 }
 
-
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl{
+    width: 100%;
+    margin: 0 auto;
+}
 
 .menu {
     background-color: white;
@@ -317,7 +320,7 @@ h2 {
     display: flex;
     flex-direction: row;
     background-color: #900000;
-    padding: 50px 0; 
+    padding: 2% 10%; 
 }
 
 .footer_content { 
@@ -347,4 +350,10 @@ h2 {
     box-sizing: none;
     text-decoration: none;
     list-style: none;
+} 
+
+.container h3 {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 10px;
 }

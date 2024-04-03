@@ -79,8 +79,7 @@
                             <span class="las la-search"></span>
                             <input type="search" placeholder="Buscar aquí" />
                         </div>
-                        
-                        <button>Mostrar todo <span class="las la-arrow-right"></span></button>
+                        <a href="{% url 'agregar_usuario' %}" class="btn btn-secundary">Agregar Usuario</a>
                     </div>
                         
                     <div class="card-body">
@@ -95,6 +94,7 @@
                                         <td>Servicio</td>
                                         <td>Tipo de Pago</td>
                                         <td>Cita</td>
+                                        <td>Acciones</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,6 +107,13 @@
                                             <td>{{ venta.IDServicio }}</td>
                                             <td>{{ venta.IDTipo_pago }}</td>
                                             <td>{{ venta.IDCita }}</td>
+                                            <td>
+                                                <a href="{% url 'editar_venta' venta.IDVenta %}"><button>Editar</button>
+                                                <form action="{% url 'eliminar_venta' venta.IDVenta %}" method="post" style="display: inline;">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
