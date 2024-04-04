@@ -14,13 +14,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import handler404
 from promecapp import views
 
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin:index'),    
     path('', views.index, name='index'),
+    path('login/', views.login_view, name='login'),    
+    path('logout/', views.logout_view, name='logout'), 
     path('usuarios/', views.usuarios, name='usuarios'),
     path('clientes/', views.clientes, name='clientes'),
     path('historial/', views.historial, name='historial'),
@@ -52,3 +57,5 @@ urlpatterns = [
     path('registro/', views.registro, name='registro'),
 
 ]
+
+handler404 = 'promecapp.views.error_404_view'

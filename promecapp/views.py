@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponseNotAllowed
+from django.contrib import messages
 from .models import Cliente, Usuario, Historial, Citas, Venta, Servicio, Factura
 from .forms import UsuarioForm, ClienteForm, CitaForm, FacturaForm, ServicioForm, VentaForm, HistorialForm, RegistroForm
-from django.http import HttpResponseNotAllowed
-from django.contrib.auth.models import User
+
 
 
 
@@ -11,6 +15,9 @@ from django.contrib.auth.models import User
 
 def index(request):
     return render(request, 'index.html')
+
+def error_404_view(request, exception):
+    return render(request, '404.html', status=404)
 
 def usuarios(request):
     usuarios = Usuario.objects.all()
@@ -24,9 +31,14 @@ def historial(request):
     historial = Historial.objects.all()
     return render(request, 'historial.html', {'historial': historial})
 
+
+
+
 def citas(request):
     citas = Citas.objects.all()
     return render(request, 'citas.html', {'citas': citas})
+
+
 
 def ventas(request):
     ventas = Venta.objects.all()
@@ -60,7 +72,7 @@ def agregar_cliente(request):
         form = ClienteForm()
     return render(request, 'agregar_cliente.html', {'form': form})
 
-def agregar_cita(request):
+"""def agregar_cita(request):
     if request.method == 'POST':
         form = CitaForm(request.POST)
         if form.is_valid():
@@ -68,7 +80,24 @@ def agregar_cita(request):
             return redirect('citas')  
     else:
         form = CitaForm()
+    return render(request, 'agregar_cita.html', {'form': form})"""
+    
+@login_required
+def agregar_cita(request):
+    if request.method == 'POST':
+        form = CitaForm(request.POST)
+        if form.is_valid():
+            cita = form.save(commit=False)  # No guardar la cita en la BD todavía
+            cita.IDCliente_id = form.cleaned_data['user_id']  # Asignar el ID del usuario al campo IDCliente
+            cita.save()  # Ahora sí, guardar la cita en la BD
+            return redirect('citas')  
+    else:
+        # Pasar el ID del usuario al formulario
+        form = CitaForm(initial={'user_id': request.user.id})
     return render(request, 'agregar_cita.html', {'form': form})
+
+
+
 
 def agregar_factura(request):
     if request.method == 'POST':
@@ -256,11 +285,11 @@ def registro(request):
         form = RegistroForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.username = form.cleaned_data["Nombre_Usuario"]
+            user.Nombre_Usuario = form.cleaned_data["Nombre_Usuario"]  # Asignar el nombre de usuario
             user.email = form.cleaned_data["correo_electronico"]
             user.set_password(form.cleaned_data["password1"])
             user.save()
-            cliente = Cliente.objects.create(
+            Cliente = Cliente.objects.create(
                 Nombre=form.cleaned_data['nombre'],
                 Apellidos=form.cleaned_data['apellidos'],
                 Direccion=form.cleaned_data['direccion'],
@@ -272,3 +301,29 @@ def registro(request):
     else:
         form = RegistroForm()
     return render(request, 'registro.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, 'Bienvenido {}'.format(user.username))
+            return redirect('index')
+        else: 
+            messages.error(request, 'Usuario o contraseña incorrectos')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+    
+    
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Sesión finalizada')
+    return redirect('index')
+    
+    
+    
+    
+    
+

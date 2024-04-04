@@ -22,8 +22,12 @@
                     <li><a href="#" style="color: black">Nuestros servicios</a></li>
                     <li><a href="#" style="color: black">Quienes somos</a></li>
                     <li><a href="#" style="color: black">Adquiere tu Servicio</a></li>
-
                 </ul>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="btn_1">Cerrar sesión</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn_1">Iniciar sesión</a>
+                {% endif %}
             </nav>
             
         </div> 
@@ -37,7 +41,7 @@
                     servicios de valo agregado gratuito o un costo reducido. 
                 </p>
                 <div class="butons">
-                    <a href="/cita/login.html" class="btn_1">adquirir servicio</a>
+                    <a href="#" class="btn_1">adquirir servicio</a>
                     <a href="#" class="btn_1">leer mas</a>
                 </div>
             </div class="header_img">

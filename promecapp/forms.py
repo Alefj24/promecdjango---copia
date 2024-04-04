@@ -1,6 +1,7 @@
 from django import forms
 from .models import Usuario, Cliente, Servicio, Factura, Venta, Historial, Citas
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 class UsuarioForm(forms.ModelForm):
     class Meta:
@@ -38,11 +39,20 @@ class HistorialForm(forms.ModelForm):
             'Fecha': forms.DateInput(attrs={'type': 'date'})}
         
 class CitaForm(forms.ModelForm):
+    user_id = forms.IntegerField(widget=forms.HiddenInput())  # Campo oculto para el ID del usuario
+
+    class Meta:
+        model = Citas
+        fields = ['Fecha_Hora', 'Descripcion', 'IDEstado', 'user_id']
+        widgets = {
+            'Fecha_Hora': forms.DateTimeInput(attrs={'type': 'datetime-local'})}
+        """
+class CitaForm(forms.ModelForm):
     class Meta:
         model = Citas
         fields = ['Fecha_Hora', 'Descripcion', 'IDEstado', 'IDCliente']
         widgets = {
-            'Fecha_Hora': forms.DateTimeInput(attrs={'type': 'datetime-local'})}
+            'Fecha_Hora': forms.DateTimeInput(attrs={'type': 'datetime-local'})}"""
         
 class FacturaForm(forms.ModelForm):
     class Meta:
@@ -58,41 +68,29 @@ class ServicioForm(forms.ModelForm):
         
 
 
-class RegistroForm(forms.ModelForm):
-    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirmar Contraseña', widget=forms.PasswordInput)
-
-    class Meta:
-        model = Usuario
-        fields = ['Nombre_Usuario', 'password1', 'password2']  # Campos de Usuario y Contraseña
-
-    # Agregar campos de Cliente como campos adicionales en el formulario
+class RegistroForm(UserCreationForm):
     nombre = forms.CharField(label='Nombre', max_length=45)
     apellidos = forms.CharField(label='Apellidos', max_length=45)
     direccion = forms.CharField(label='Direccion', max_length=100)
     telefono = forms.CharField(label='Telefono', max_length=10)
     correo_electronico = forms.EmailField(label='Correo Electrónico')
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password1 = cleaned_data.get("password1")
-        password2 = cleaned_data.get("password2")
-        if password1 != password2:
-            raise forms.ValidationError("Las contraseñas no coinciden.")
-        return cleaned_data
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
 
     def save(self, commit=True):
-        usuario = super().save(commit=False)
-        usuario.set_password(self.cleaned_data["password1"])
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['correo_electronico']
         if commit:
-            usuario.save()
-            # Crear un nuevo cliente asociado al usuario
+            user.save()
             Cliente.objects.create(
                 Nombre=self.cleaned_data['nombre'],
                 Apellidos=self.cleaned_data['apellidos'],
                 Direccion=self.cleaned_data['direccion'],
                 Telefono=self.cleaned_data['telefono'],
                 Correo_Electronico=self.cleaned_data['correo_electronico'],
-                IDUsuario=usuario
+                IDUsuario=user
             )
-        return usuario
+        return user
+    
