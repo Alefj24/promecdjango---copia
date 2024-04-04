@@ -46,14 +46,8 @@ class CitaForm(forms.ModelForm):
         fields = ['Fecha_Hora', 'Descripcion', 'IDEstado', 'user_id']
         widgets = {
             'Fecha_Hora': forms.DateTimeInput(attrs={'type': 'datetime-local'})}
-        """
-class CitaForm(forms.ModelForm):
-    class Meta:
-        model = Citas
-        fields = ['Fecha_Hora', 'Descripcion', 'IDEstado', 'IDCliente']
-        widgets = {
-            'Fecha_Hora': forms.DateTimeInput(attrs={'type': 'datetime-local'})}"""
-        
+
+
 class FacturaForm(forms.ModelForm):
     class Meta:
         model = Factura

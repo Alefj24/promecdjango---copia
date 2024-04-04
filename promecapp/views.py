@@ -87,15 +87,13 @@ def agregar_cita(request):
     if request.method == 'POST':
         form = CitaForm(request.POST)
         if form.is_valid():
-            cita = form.save(commit=False)  # No guardar la cita en la BD todavía
-            cita.IDCliente_id = form.cleaned_data['user_id']  # Asignar el ID del usuario al campo IDCliente
-            cita.save()  # Ahora sí, guardar la cita en la BD
-            return redirect('citas')  
+            cita = form.save(commit=False) 
+            cita.IDCliente_id = request.user.id 
+            cita.save()
+            return redirect('citas')
     else:
-        # Pasar el ID del usuario al formulario
         form = CitaForm(initial={'user_id': request.user.id})
     return render(request, 'agregar_cita.html', {'form': form})
-
 
 
 
