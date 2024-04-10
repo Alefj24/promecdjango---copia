@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseNotAllowed
 from django.contrib import messages
 from .models import Cliente, Usuario, Historial, Citas, Venta, Servicio, Factura
-from .forms import UsuarioForm, ClienteForm, CitaForm, FacturaForm, ServicioForm, VentaForm, HistorialForm, RegistroForm
+from .forms import UsuarioForm, ClienteForm, CitaForm, FacturaForm, ServicioForm, VentaForm, HistorialForm, RegistroForm, LoginForm
 
 
 
@@ -72,15 +72,6 @@ def agregar_cliente(request):
         form = ClienteForm()
     return render(request, 'agregar_cliente.html', {'form': form})
 
-"""def agregar_cita(request):
-    if request.method == 'POST':
-        form = CitaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('citas')  
-    else:
-        form = CitaForm()
-    return render(request, 'agregar_cita.html', {'form': form})"""
     
 @login_required
 def agregar_cita(request):
@@ -300,7 +291,37 @@ def registro(request):
         form = RegistroForm()
     return render(request, 'registro.html', {'form': form})
 
+
 def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            usuario = form.get_user()
+            login(request, usuario)
+            return redirect('index')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
+
+
+"""def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            usuario = form.get_user()
+            login(request, usuario)
+            messages.success(request, f'Bienvenido {usuario}')
+            return redirect('index') 
+        else: 
+            messages.error(request, 'Usuario o contraseña incorrectos')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})"""
+
+
+
+
+"""def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
@@ -312,7 +333,7 @@ def login_view(request):
             messages.error(request, 'Usuario o contraseña incorrectos')
     else:
         form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form})"""
     
     
 def logout_view(request):

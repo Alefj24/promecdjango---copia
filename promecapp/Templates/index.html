@@ -19,9 +19,9 @@
             </label>
             <nav class="navbar">
                 <ul>
-                    <li><a href="{% url 'crear_cita' %} " style="color: black">Nuestros servicios</a></li>
+                    <li><a href="{% url 'index' %} " style="color: black">Nuestros servicios</a></li>
                     <li><a href="#" style="color: black">Quienes somos</a></li>
-                    <li><a href="#" style="color: black">Adquiere tu Servicio</a></li>
+                    <li><a href="{% url 'ventas' %}" style="color: black">Adquiere tu Servicio</a></li>
                 </ul>
                 <h4 style="color: red;">{{ request.user.username }}</h4>
                 {% if user.is_authenticated %}

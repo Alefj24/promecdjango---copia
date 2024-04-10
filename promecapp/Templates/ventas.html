@@ -12,7 +12,7 @@
 <input type="checkbox" id="nav-toggle">
 <div class="sidebar">
     <div class="sidebar-brand">
-        <h2><i class="fa-solid fa-gears" style="color: #ffffff;"></i><span>promec</span></h2>
+        <h2><href="{% url 'index' %}" class="btn btn-light">Promec</href=>
     </div>
     <!--Secciones-del-tablero-->
     <div class="sidebar-menu">
@@ -23,9 +23,11 @@
             </li>
             
             <li>
-                <a href="{% url 'usuarios' %}"><i class="fa-solid fa-calendar-day" style="color: #ffffff;"></i>
-                    <span>Usuarios</span></a>
+                <a href="{% url 'usuarios' %}"><img src="{% static 'images/user.png' %}" width="10%" alt="Usuarios">
+                    <span>Usuarios</span>
+                </a>
             </li>
+            
             <li>
                 <a href="{% url 'citas' %}"><i class="fa-solid fa-calendar-day" style="color: #ffffff;"></i>
                     <span>Citas</span></a>

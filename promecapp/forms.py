@@ -1,7 +1,7 @@
 from django import forms
 from .models import Usuario, Cliente, Servicio, Factura, Venta, Historial, Citas
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 class UsuarioForm(forms.ModelForm):
     class Meta:
@@ -88,3 +88,6 @@ class RegistroForm(UserCreationForm):
             )
         return user
     
+class LoginForm(AuthenticationForm):
+    class Meta:
+        fields = ['username', 'password']
